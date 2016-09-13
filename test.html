@@ -1,37 +1,31 @@
 <html>
 
-<head></head>
+<head>
+    <title>Json to dropdown list demo</title>
+</head>
 
 <body>
 <div>
-    <select id="DLState">
-    </select>
+    <select id="idTypeDL" title="idType"></select>
+    <select id="employeeDocTypeDL" title="employeeDocType"></select>
     <!-- 测试效果用代码 -->
     <button onclick="myAlert()">显示值</button>
 </div>
 </body>
 
-<script src="jquery-3.1.0.min.js"></script>
+<script src="js/jquery-3.1.0.min.js"></script>
+<script src="js/utils.js"></script>
 <script type="text/javascript">
-    var list = {
-        "obj": [{"key": "1", "value": "身份证"},
-            {"key": "2", "value": "护照"},
-            {"key": "3", "value": "台胞证"},
-            {"key": "4", "value": "军官证"},
-            {"key": "5", "value": "香港身份证"}]
-    };
-
     $(document).ready(function () {
-        var items = "";
-        for (var i = 0; i < list.obj.length; i++) {
-            items += "<option value='" + list.obj[i].key + "'>" + list.obj[i].value + "</option>";
-        }
-        $("#DLState").html(items);
+        $.getJSON("static/dataList.json", function (data) {
+            generateDropdownList("idTypeDL", data.idType);
+            generateDropdownList("employeeDocTypeDL", data.employeeDocType);
+        });
     });
 
     // 测试效果用代码
     function myAlert() {
-        var selectedOption = $("#DLState").find(":selected");
+        var selectedOption = $("#employeeDocTypeDL").find(":selected");
         var value = selectedOption.val();
         var text = selectedOption.text();
         alert("value = " + value + " | text = " + text);
